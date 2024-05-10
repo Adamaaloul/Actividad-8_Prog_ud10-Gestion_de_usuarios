@@ -1,0 +1,47 @@
+body {
+    text-align: center;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+label {
+    margin-bottom: 5px;
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    color: #00244d;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    border: 2px solid #0056b3;
+    background-color: #7a7a7a;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #0056b3;
+}
+h3 {
+    color: #afcff3;
+}
+a{
+    color: #0056b3;
+}
+a:hover{
+    color: #00244d;
+}
