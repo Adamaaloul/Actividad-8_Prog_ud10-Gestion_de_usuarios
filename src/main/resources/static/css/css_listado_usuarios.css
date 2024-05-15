@@ -26,7 +26,7 @@ thead {
     padding: 10px;
     font-size: 16px;
     margin-right: 10px;
-    background: url('/static/images/lupa.png') no-repeat;
+    background: url('/images/lupa.png') no-repeat;
     background-size: 20px 20px;
     background-position: 10px center;
     padding-left: 40px;

@@ -3,35 +3,30 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Listados de usarios</title>
-	<link rel="stylesheet" href="/static/css/css_form_usuarios.css">
+	<title>Formulario de usarios</title>
+	<link rel="stylesheet" href="/css/css_form_usuarios.css">
 </head>
 
 <body>
-	<div class="container">
-		<div class="errors" th:if="${errors}">
-			<p th:each="item: ${errors}">
-				<strong th:text="${item.key}"></strong>:
-				<span th:text="${item.value}"></span>
-			</p>
+	<div th:if="${errorMessage}" class="alert alert-danger">
+		    <p th:text="${errorMessage}"></p>
 		</div>
-		<h1><strong>Insertar usuario</strong></h1>
-		<h3>Insertar un nuevo usuario en la Base de datos</h3>
-		<form action="/tarea-add" method="post">
-			<label>Nombre <input name="user" type="text" required placeholder="Adam"></label><br>
-			<label>Apellidos <input name="apellidos" type="text" required placeholder="Aaloul"></label><br>
-			<label>dni <input name="dni" type="text" required placeholder="00000000Q"></label><br>
-			<label>email <input name="email" type="text" required placeholder="prueba@gmail.com"></label><br>
-			<label>telefono <input name="telefono" type="text" required placeholder="612345678"></label><br>
-			<label>birthday <input name="birthday" type="date" required></label><br>
-			<label>Código Postal <input name="password" type="number" required placeholder="00000"></label><br>
-			<label>Password <input name="password" type="text" required placeholder="000000"></label><br>
-			<label>Repetir Password <input name="password" type="text" required placeholder="000000"></label><br>
-
-			<input type="submit" value="Añadir" required><input name="boton" type="submit" value="Reset" required><br>
-			<p><a href='/'>Volver al Listado de Usuarios</a></p>
-		</form>
-	</div>
+	<div class="container">
+        <h1>Insertar Usuario</h1>
+		<form action="/usuario-add" method="post" >
+            <label>Nombre <input type="text" required placeholder="Nombre"></label><br>
+            <label>Apellidos <input type="text"  required placeholder="Apellidos"></label><br>
+            <label>DNI <input type="text" required placeholder="DNI"></label><br>
+            <label>Correo Electrónico <input type="email" required placeholder="Correo Electrónico"></label><br>
+            <label>Código Postal <input type="text" required placeholder="Código Postal"></label><br>
+            <label>Teléfono Móvil <input type="tel" required placeholder="Teléfono Móvil"></label><br>
+            <label>Fecha de Nacimiento <input type="date"  required></label><br>
+            <label>Password <input type="password"  required placeholder="Password"></label><br>
+            <label>Repetir Password <input type="password" required placeholder="Repetir Password"></label><br>
+            <input type="submit" value="Añadir">
+        </form>
+        <p><a href="/usuarios">Volver al Listado de Usuarios</a></p>
+    </div>
 </body>
 
 </html>

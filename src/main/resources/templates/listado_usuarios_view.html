@@ -4,16 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla 5x5</title>
-	<link rel="stylesheet" href="/static/css/css_listado_usuarios.css">
+    <title>Listado de usuarios</title>
+    <link rel="stylesheet" href="/css/css_listado_usuarios.css">
 
 </head>
 
 <body>
-    <input type="text" class="search-input" placeholder="Buscar...">
-    <button class="search-button">Buscar</button><br>
-    <p ><a href="/listado_usuario_view.html">Añadir Nuevo Usuario</a></p>
-
+    <form method="get" action="/usuarios" class="search-form">
+        <input type="text" class="search-input" placeholder="Buscar..." name="usuario">
+        <button type="submit" class="search-button">Buscar</button>
+    </form>
+    <p><a href="/usuario-add">Añadir Nuevo Usuario</a></p>
+	
     <table>
         <thead>
             <tr>
@@ -25,40 +27,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Fila 1, Celda 1</td>
-                <td>Fila 1, Celda 2</td>
-                <td>Fila 1, Celda 3</td>
-                <td>Fila 1, Celda 4</td>
-                <td>Fila 1, Celda 5</td>
-            </tr>
-            <tr>
-                <td>Fila 2, Celda 1</td>
-                <td>Fila 2, Celda 2</td>
-                <td>Fila 2, Celda 3</td>
-                <td>Fila 2, Celda 4</td>
-                <td>Fila 2, Celda 5</td>
-            </tr>
-            <tr>
-                <td>Fila 3, Celda 1</td>
-                <td>Fila 3, Celda 2</td>
-                <td>Fila 3, Celda 3</td>
-                <td>Fila 3, Celda 4</td>
-                <td>Fila 3, Celda 5</td>
-            </tr>
-            <tr>
-                <td>Fila 4, Celda 1</td>
-                <td>Fila 4, Celda 2</td>
-                <td>Fila 4, Celda 3</td>
-                <td>Fila 4, Celda 4</td>
-                <td>Fila 4, Celda 5</td>
-            </tr>
-            <tr>
-                <td>Fila 5, Celda 1</td>
-                <td>Fila 5, Celda 2</td>
-                <td>Fila 5, Celda 3</td>
-                <td>Fila 5, Celda 4</td>
-                <td>Fila 5, Celda 5</td>
+            <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.nombre + ' ' + usuario.apellidos}"></td>
+                <td th:text="${usuario.correoElectronico}"></td>
+                <td th:text="${usuario.fechaNacimiento}"></td>
+                <td th:text="${usuario.codigoPostal}"></td>
+                <td>
+                    <a th:href="@{/detalle_usuario(nombre=${usuario.nombre}, apellidos=${usuario.apellidos})}"><strong>Detalles</strong></a> /
+                    <a th:href="@{/usuario-del(dni=${usuario.dni})}" onclick="return confirm('¿Estás seguro?')"><strong>Borrar</strong></a>
+                </td>
             </tr>
         </tbody>
     </table>

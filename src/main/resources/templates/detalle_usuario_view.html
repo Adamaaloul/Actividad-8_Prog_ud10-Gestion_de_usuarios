@@ -2,31 +2,22 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Detalle de usarios</title>
-	<link rel="stylesheet" href="/static/css/css_detalle_usuario.css">
+    <meta charset="UTF-8">
+    <title>Detalle de usuarios</title>
+    <link rel="stylesheet" href="/css/css_detalle_usuario.css">
 </head>
 
 <body>
-	<div class="container">
-		<div class="errors" th:if="${errors}">
-			<p th:each="item: ${errors}">
-				<strong th:text="${item.key}"></strong>:
-				<span th:text="${item.value}"></span>
-			</p>
-		</div>
-		<h1><strong>Detalle usuario</strong></h1>
-		<form action="/tarea-add" method="post">
-			<label>Nombre <input name="user" type="text" required placeholder="Adam"></label><br>
-			<label>Apellidos <input name="apellidos" type="text" required placeholder="Aaloul"></label><br>
-			<label>dni <input name="dni" type="text" required placeholder="00000000Q"></label><br>
-			<label>email <input name="email" type="text" required placeholder="prueba@gmail.com"></label><br>
-			<label>telefono <input name="telefono" type="text" required placeholder="612345678"></label><br>
-			<label>birthday <input name="birthday" type="date" required></label><br>
-			<label>Código Postal <input name="password" type="number" required placeholder="00000"></label><br>
-			<input type="submit" value="Añadir" required><input name="boton" type="submit" value="Reset" required><br>
-			<p><a href='/'>Volver al Listado de Usuarios</a></p>
-		</form>
+    <div class="container">
+		 <h1><strong>Detalle usuario</strong></h1>
+		 <p>Nombre: <span th:text="${usuario.nombre}"></span></p>
+		 <p>Apellidos: <span th:text="${usuario.apellidos}"></span></p>
+		 <p>DNI: <span th:text="${usuario.dni}"></span></p>
+		 <p>Email: <span th:text="${usuario.correoElectronico}"></span></p>
+		 <p>Teléfono: <span th:text="${usuario.telefonoMovil}"></span></p>
+		 <p>Fecha de Nacimiento: <span th:text="${usuario.fechaNacimiento}"></span></p>
+		 <p>Código Postal: <span th:text="${usuario.codigoPostal}"></span></p>
+		 <p><a href='/usuarios'>Volver al Listado de Usuarios</a></p>
 	</div>
 </body>
 
