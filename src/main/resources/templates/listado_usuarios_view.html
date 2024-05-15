@@ -10,12 +10,13 @@
 </head>
 
 <body>
-    <form method="get" action="/usuarios" class="search-form">
+    <form method="get" action="/usuarios" >
         <input type="text" class="search-input" placeholder="Buscar..." name="usuario">
         <button type="submit" class="search-button">Buscar</button>
     </form>
     <p><a href="/usuario-add">Añadir Nuevo Usuario</a></p>
-	
+	<span th:if="${nombre}" th:text="${nombre}"></span>
+	<div th:if="${usuarios.size} > 0"></div>
     <table>
         <thead>
             <tr>

@@ -1,6 +1,8 @@
 package es.progcipfpbatoi.progud10classwork.Controller.model.repositories;
 
 import es.progcipfpbatoi.progud10classwork.Controller.model.entities.Usuario;
+import es.progcipfpbatoi.progud10classwork.exceptions.NotFoundException;
+
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,11 +21,22 @@ public class UsuariosRepository {
         usuarios.add(usuario);
     }
 
-    public List<Usuario> findAll() {
+    public List<Usuario> findAll(){
         return usuarios;
     }
+    
+    public List<Usuario> findAll(String nombre){
+        List<Usuario> usuariosFiltrados = new ArrayList<>();
+        for(Usuario usuario: usuarios){
+            if(usuario.getNombre().equals(nombre)){
+                usuariosFiltrados.add(usuario);
+            }
+        }
 
-    public Usuario findByDni(Long dni) {
+        return usuariosFiltrados;
+    }
+
+    public Usuario findByDni(String dni) {
         for (Usuario usuario : usuarios) {
             if (usuario.getDni().equals(dni)) {
                 return usuario;
@@ -31,8 +44,9 @@ public class UsuariosRepository {
         }
         return null;
     }
-
-    public boolean delete(Long dni) {
+    
+    
+    public boolean delete(String dni) {
         Usuario usuario = findByDni(dni);
         if (usuario != null) {
             usuarios.remove(usuario);
@@ -41,22 +55,21 @@ public class UsuariosRepository {
         return false;
     }
 
-    public Usuario get(String dni) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getDni().equals(dni)) {
-                return usuario;
-            }
+    public Usuario get(String DNI) throws NotFoundException{
+        Usuario usuario = find(DNI);
+        if (usuario == null) {
+        	throw new NotFoundException("El usuario con dni " + DNI + " no existe");
         }
-        return null;
+            return usuario;
     }
 
-    public boolean delete(String dni) {
-        Usuario usuario = get(dni);
-        if (usuario != null) {
-            usuarios.remove(usuario);
-            return true;
+    public Usuario find(String DNI) {
+        Usuario usuario = new Usuario(DNI);
+        if(usuarios.contains(usuario)){
+            return usuarios.get(usuarios.indexOf(usuario));
         }
-        return false;
+
+        return null;
     }
 
     private void init() {

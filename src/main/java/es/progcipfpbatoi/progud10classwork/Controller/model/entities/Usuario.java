@@ -15,6 +15,9 @@ public class Usuario {
     private String password;
     private String repetirPassword;
     
+    public Usuario(String dni) {
+        this.dni = dni;
+    }
     
     public Usuario(String nombre, String apellidos, String dni, String correoElectronico, String codigoPostal, String telefonoMovil, LocalDate fechaNacimiento, String password, String repetirPassword) {
         this.nombre = nombre;
@@ -107,10 +110,7 @@ public class Usuario {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return Objects.equals(apellidos, other.apellidos) && Objects.equals(codigoPostal, other.codigoPostal)
-				&& Objects.equals(correoElectronico, other.correoElectronico) && Objects.equals(dni, other.dni)
-				&& Objects.equals(fechaNacimiento, other.fechaNacimiento) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(password, other.password) && Objects.equals(telefonoMovil, other.telefonoMovil);
+		return Objects.equals(dni, other.dni);
 	}
 	
 	

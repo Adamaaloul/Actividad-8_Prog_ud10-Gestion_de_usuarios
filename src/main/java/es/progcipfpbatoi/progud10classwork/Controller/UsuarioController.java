@@ -28,7 +28,11 @@ import org.springframework.validation.annotation.Validated;
 @Controller
 public class UsuarioController {
 	@Autowired
-    private UsuariosRepository usuariosRepository;
+	private UsuariosRepository usuariosRepository;
+
+	public UsuarioController(){
+        this.usuariosRepository = new UsuariosRepository();
+    }
     
     @GetMapping("/usuario-add")
     public String usuarioFormActionView() {
@@ -86,12 +90,8 @@ public class UsuarioController {
             errors.put("password", "La contraseña no cumple con los requisitos");
         }
 
-        if (password == null || repetirPassword == null) {
-            errors.put("password", "La contraseña y la repetición de la contraseña no pueden ser nulas");
-        } else {
-            if (!password.equals(repetirPassword)) {
-                errors.put("repetirPassword", "Las contraseñas no coinciden");
-            }
+        if (!password.equals(repetirPassword)) {
+            errors.put("repetirPassword", "Las contraseñas no coinciden.");
         }
         
         if(errors.size() > 0){
@@ -118,24 +118,29 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping(value = "/usuario-del")
-    public String deleteAction(@RequestParam HashMap<String, String>params, Model model) throws NotFoundException {
+    @GetMapping("/usuario-del")
+    public String deleteAction(@RequestParam("dni") String dni, RedirectAttributes redirectAttributes) {
         try {
-        	String dni = params.get("dni");
-        	Usuario usuario = usuariosRepository.get(dni);
-        }catch (Exception e) {
-			String mensaje = e.getMessage();
-		}
+            if (usuariosRepository.delete(dni)) {
+                redirectAttributes.addFlashAttribute("success", "Usuario eliminado correctamente");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "El usuario con DNI " + dni + " no existe");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al eliminar el usuario");
+        }
         return "redirect:/usuarios";
     }
+    
+    
 
-    @GetMapping("/usuarios")
-    public String userList(Model model, @RequestParam HashMap<String, String> params) {
-        String usuario = params.get("usuario");
+    @GetMapping(value = "/usuarios")
+    public String usuariosList(Model model, @RequestParam HashMap<String, String> params){
+        String nombre = params.get("nombre");
         List<Usuario> usuarios;
-        if (usuario != null && !usuario.isEmpty()) {
-            usuarios = usuariosRepository.findAll();
-            model.addAttribute("usuario", usuario);
+        if(nombre != null && !nombre.isEmpty()){
+            model.addAttribute("nombre", nombre);
+            usuarios = usuariosRepository.findAll(nombre);
         } else {
             usuarios = usuariosRepository.findAll();
         }
